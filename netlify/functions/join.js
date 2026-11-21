@@ -34,10 +34,46 @@ exports.handler = async (event) => {
         const text = message.text.trim();
 
         if (text === "/post" && String(message.from.id) === String(ADMIN_CHAT_ID)) {
+
+            const announcement = `🔥 <b>ROCK-PAPER-SCISSORS TOURNAMENT IS HERE!</b> 🔥
+
+🏆 Kcyblog is hosting an exciting <b>ROCK-PAPER-SCISSORS TOURNAMENT!</b>
+Think you have what it takes to win? Prove yourself and claim your prize! 😎
+
+💰 <b>PRIZES:</b>
+🥇 1ST PLACE — <b>50,000 UZS</b>
+🥈 2ND PLACE — <b>25,000 UZS</b>
+🥉 3RD PLACE — <b>10,000 UZS</b>
+💸 <b>TOTAL PRIZE MONEY: 85,000 UZS!</b>
+
+📌 <b>HOW TO JOIN:</b>
+1️⃣ Subscribe to the Kcyblog channel.
+2️⃣ React to this post with 🔥.
+
+⚡️ Don't miss your chance to compete and win!
+
+🔥 <b>ROCK. PAPER. SCISSORS. — WHO WILL BE THE CHAMPION?</b>
+📢 Stay tuned for updates and results on <b>Kcyblog</b>!
+
+================================
+
+🚀 <b>WANT TO PARTICIPATE?</b>
+💬 Comment <b>"I'M IN!"</b> under this post to register for the tournament!
+⚠️ Your participation will be confirmed after registration.
+
+🔥 GOOD LUCK TO EVERYONE! 🏆
+
+================================
+
+📅 I will announce the tournament day later. STAY TUNED!!! 🔥
+
+@Hon0ured_one`;
+
             const result = await sendMessage(
                 "@kcythox_blog",
-                "JOIN tugmasini bosib, bot orqali so‘rovingizni yuboring!",
+                announcement,
                 {
+                    parse_mode: "HTML",
                     reply_markup: {
                         inline_keyboard: [[
                             {
@@ -52,9 +88,9 @@ exports.handler = async (event) => {
             const data = await result.json();
 
             if (!data.ok) {
-                await sendMessage(chatId, "Post yuborilmadi. Botning kanal administratorligi va ruxsatlarini tekshiring.");
+                await sendMessage(chatId, "Post yuborilmadi. Kanal ruxsatlarini tekshiring.");
             } else {
-                await sendMessage(chatId, "Post kanalingizga muvaffaqiyatli yuborildi!");
+                await sendMessage(chatId, "Tournament announcement successfully posted!");
             }
 
             return { statusCode: 200, body: "OK" };
@@ -67,7 +103,7 @@ exports.handler = async (event) => {
 
             await sendMessage(
                 chatId,
-                "So‘rovingiz qabul qilindi! Tez orada siz bilan bog‘lanamiz."
+                "Your registration request has been received! Stay tuned."
             );
 
             await sendMessage(
