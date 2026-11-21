@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kcyblog | Join</title>
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #080b10;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    padding: 20px;
+}
+
+.card {
+    width: 100%;
+    max-width: 390px;
+    padding: 35px 25px;
+    text-align: center;
+    background: #111821;
+    border: 1px solid #263442;
+    border-radius: 20px;
+}
+
+.logo {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #65e6a5;
+}
+
+p {
+    color: #9baab8;
+    margin: 15px 0 25px;
+    line-height: 1.6;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #65e6a5;
+    color: #07110c;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8af5bd;
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #65e6a5;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo">KCYBLOG</div>
+    <p>
+        Welcome to Kcyblog!<br>
+        Click below to send your request.
+    </p>
+
+    <button id="join">JOIN</button>
+    <div id="status"></div>
+</div>
+
+<script>
+const button = document.getElementById("join");
+const status = document.getElementById("status");
+
+button.addEventListener("click", async () => {
+    button.disabled = true;
+    status.textContent = "Sending request...";
+
+    try {
+        const response = await fetch("/.netlify/functions/join", {
+            method: "POST"
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Request failed");
+        }
+
+        status.textContent = "Your request has been sent!";
+    } catch (error) {
+        status.textContent = "Please try again later.";
+        button.disabled = false;
+    }
+});
+</script>
+
+</body>
+</html>
